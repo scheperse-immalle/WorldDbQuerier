@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "WorldDbQuerier": {
+      "commandName": "Project"
+    },
+    "WordDbQuerierWith-vAsPara": {
+      "commandName": "Project",
+      "commandLineArgs": "-v"
+    }
+  }
+}
