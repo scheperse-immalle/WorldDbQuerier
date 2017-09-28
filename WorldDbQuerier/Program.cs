@@ -28,6 +28,10 @@ namespace WorldDbQuerier
                 Console.WriteLine("???");
             }
 
+            AmountOfCountries();
+        }
+        public static void AmountOfCountries()
+        {
             MySqlConnection comm = new MySqlConnection();
 
 
@@ -41,11 +45,6 @@ namespace WorldDbQuerier
 
             Console.WriteLine("Version {0} ; ", versionNumber1);
             Console.WriteLine("Aantal landen {0}", cmd.ExecuteScalar());
-
-
-
-
-
         }
     }
 }
