@@ -29,6 +29,7 @@ namespace WorldDbQuerier
             }
 
             AmountOfCountries();
+            NewParameters();
         }
         public static void AmountOfCountries()
         {
@@ -45,6 +46,32 @@ namespace WorldDbQuerier
 
             Console.WriteLine("Version {0} ; ", versionNumber1);
             Console.WriteLine("Aantal landen {0}", cmd.ExecuteScalar());
+        }
+        public static void NewParameters(string[] args)
+        {
+            if (args.Length>0) {
+                switch (args[1])
+                {
+                    case "AllCountries":
+                        MySqlConnection comm = new MySqlConnection();
+
+
+                        comm.ConnectionString = "Server = 192.168.56.102;Port = 3306; Database = concerten;Uid = root;Pwd = r00t; ";
+
+                        MySqlCommand cmd = new MySqlCommand();
+                        cmd.Connection = comm;
+                        cmd.CommandText = "SELECT * FROM world.Country";
+
+                        comm.Open();
+                        Console.WriteLine("alle landen : {0}", cmd.ExecuteScalar());
+                        break;
+
+                    case "AmountOfCountries":
+                        AmountOfCountries();
+                        break;
+
+                }
+            }
         }
     }
 }
