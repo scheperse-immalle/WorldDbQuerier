@@ -6,7 +6,6 @@ namespace WorldDbQuerier
     class Program
     {
         static string versionNumber = "0.1";
-        static string versionNumber1 = "0.2";
         static void Main(string[] args)
         {
             if (args.Length > 0)
@@ -21,37 +20,14 @@ namespace WorldDbQuerier
                         break;
                 }
 
+                string parameters;
+                Console.WriteLine("1. Show all countries");
+                Console.WriteLine("2. Show amount of countries");
+                parameters = Console.ReadLine();
 
-            }
-            else
-            {
-                Console.WriteLine("???");
-            }
-
-            AmountOfCountries();
-            NewParameters();
-        }
-        public static void AmountOfCountries()
-        {
-            MySqlConnection comm = new MySqlConnection();
-
-
-            comm.ConnectionString = "Server = 192.168.56.102;Port = 3306; Database = concerten;Uid = root;Pwd = r00t; ";
-
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = comm;
-            cmd.CommandText = "SELECT count(*) FROM world.Country";
-
-            comm.Open();
-
-            Console.WriteLine("Version {0} ; ", versionNumber1);
-            Console.WriteLine("Aantal landen {0}", cmd.ExecuteScalar());
-        }
-        public static void NewParameters(string[] args)
-        {
-            if (args.Length>0) {
-                switch (args[1])
+                switch (parameters)
                 {
+
                     case "AllCountries":
                         MySqlConnection comm = new MySqlConnection();
 
@@ -70,8 +46,36 @@ namespace WorldDbQuerier
                         AmountOfCountries();
                         break;
 
+
                 }
+                
+
+
             }
+            else
+            {
+                Console.WriteLine("???");
+            }
+
+            
+            
         }
+        public static void AmountOfCountries()
+        {
+            MySqlConnection comm = new MySqlConnection();
+
+
+            comm.ConnectionString = "Server = 192.168.56.102;Port = 3306; Database = concerten;Uid = root;Pwd = r00t; ";
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = comm;
+            cmd.CommandText = "SELECT count(*) FROM world.Country";
+
+            comm.Open();
+
+            Console.WriteLine("Version {0} ; ", versionNumber);
+            Console.WriteLine("Aantal landen {0}", cmd.ExecuteScalar());
+        }
+        
     }
 }
