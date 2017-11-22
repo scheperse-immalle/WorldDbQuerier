@@ -21,60 +21,79 @@ namespace WorldDbQuerier
                 }
 
                 string parameters;
-                Console.WriteLine("1. Show all countries");
-                Console.WriteLine("2. Show amount of countries");
+                Console.WriteLine("AllCoutries");
+                Console.WriteLine("AmountOfCountries");
+                Console.WriteLine("SearchCountry");
+
                 parameters = Console.ReadLine();
 
                 switch (parameters)
                 {
 
                     case "AllCountries":
-                        MySqlConnection comm = new MySqlConnection();
-
-
-                        comm.ConnectionString = "Server = 192.168.56.102;Port = 3306; Database = concerten;Uid = root;Pwd = r00t; ";
-
-                        MySqlCommand cmd = new MySqlCommand();
-                        cmd.Connection = comm;
-                        cmd.CommandText = "SELECT * FROM world.Country";
-
-                        comm.Open();
-                        Console.WriteLine("alle landen : {0}", cmd.ExecuteScalar());
+                        AllCountries();
                         break;
 
                     case "AmountOfCountries":
                         AmountOfCountries();
                         break;
+                    case "SearchCountry":
+                        SearchCountry();
+                        break;
 
 
                 }
-                
-
-
             }
-            else
-            {
-                Console.WriteLine("???");
-            }
-
             
+            
+        }
+        public static void AllCountries()
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server= 192.168.56.102; port=3306; database= concerten; Uid= root; Pwd=r00t;";
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = conn;
+
+            conn.Open();
+
+            cmd.CommandText = "SELECT * FROM word.Country";
+            cmd.ExecuteScalar();
+            
+
             
         }
         public static void AmountOfCountries()
         {
-            MySqlConnection comm = new MySqlConnection();
-
-
-            comm.ConnectionString = "Server = 192.168.56.102;Port = 3306; Database = concerten;Uid = root;Pwd = r00t; ";
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "Server = 192.168.56.102;Port = 3306; Database = concerten;Uid = root;Pwd = r00t; ";
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = comm;
+            cmd.Connection = conn;
             cmd.CommandText = "SELECT count(*) FROM world.Country";
 
-            comm.Open();
+            conn.Open();
 
             Console.WriteLine("Version {0} ; ", versionNumber);
             Console.WriteLine("Aantal landen {0}", cmd.ExecuteScalar());
+        }
+        public static void SearchCountry()
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=192.168.56.102; port= 3306; Database = concerten; Uid= root; pwd=r00t;";
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = conn;
+
+            conn.Open();
+
+            Console.WriteLine("Which country do you want me to search?");
+            string givenCountry = Console.ReadLine();
+            cmd.CommandText = "SELECT Code, Name, Continent, Region FROM country WHERE name LIKE @givenCountry";
+            cmd.Parameters.AddWithValue("@givenCountry", "%" + givenCountry + "%");
+
+            
+            var reader = cmd.ExecuteReader();
         }
         
     }
